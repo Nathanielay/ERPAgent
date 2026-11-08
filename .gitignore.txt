@@ -1,0 +1,8 @@
+# 示例 .gitignore
+node_modules/
+venv/
+.env
+.workbuddy/
+*.log
+*.sqlite3
+__pycache__/

@@ -57,11 +57,14 @@ export DEBIAN_FRONTEND=noninteractive
 
 # ---------------------------------------------------------------- 1. 系统依赖
 step "1/9 安装系统基础依赖"
-sudo apt-get update -qq || die "apt update 失败"
-sudo apt-get install -y -qq \
+sudo apt-get update || die "apt update 失败"
+sudo apt-get install -y \
   git curl wget build-essential pkg-config \
   libmariadb-dev libjpeg-turbo8 libxrender1 libxext6 libfontconfig1 \
-  xfonts-75dpi xfonts-base xvfb cron ca-certificates gnupg 2>&1 | tail -5
+  xfonts-75dpi xfonts-base xvfb cron ca-certificates gnupg 2>&1 | tail -8 \
+  || die "基础依赖安装失败（上面有具体包名）"
+command -v curl >/dev/null 2>&1 || die "curl 未装上"
+command -v git  >/dev/null 2>&1 || die "git 未装上"
 ok "基础依赖就绪"
 
 # ---------------------------------------------------------------- 2. MariaDB 11.8
